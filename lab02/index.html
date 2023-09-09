@@ -2,76 +2,86 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Котенко Дмитро Олександрович/ІТ-02/Лаба-5/Варіант-84</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapcha Sviatoslav IT-04</title>
+    <meta name="keywords" content="Chapcha, Sviatoslav, IT-04" />
+    <meta name="description" content="Lab02" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="a-center">
-      <h3>Завдання 1</h3>
-    </div>
-    <div class="flex-around-box">
-      <div class="reg-form">
-        <h3>Форма для заповнення</h3>
-        <form onsubmit="return submitForm()">
-          <div class="my-2">
-            <input id="name" placeholder="ПІБ" required />
-          </div>
-          <div class="my-2">
-            <input
-              id="variant"
-              type="number"
-              required
-              max="10"
-              min="1"
-              placeholder="Варіант"
-            />
-          </div>
-          <div class="my-2">
-            <input id="group" placeholder="Група" required />
-          </div>
-          <div class="my-2">
-            <input id="faculty" placeholder="Факультет" required />
-          </div>
-          <div class="my-2">
-            <input id="birthdate" placeholder="Дата народж." required />
-          </div>
-          <button class="mx-auto">Надіслати</button>
-        </form>
-      </div>
-      <div>
-        <div id="response-block" style="display: none">
-          <h3>Результати</h3>
-          <div class="flex-between-box my-2">
-            <div>ПІБ:</div>
-            <div id="name-value"></div>
-          </div>
-          <div class="flex-between-box my-2">
-            <div>Варіант:</div>
-
-            <div id="variant-value"></div>
-          </div>
-          <div class="flex-between-box my-2">
-            <div>Група:</div>
-            <div id="group-value"></div>
-          </div>
-          <div class="flex-between-box my-2">
-            <div>Факультет:</div>
-            <div id="faculty-value"></div>
-          </div>
-          <div class="flex-between-box my-2">
-            <div>Дата народження:</div>
-            <div id="birthdate-value"></div>
-          </div>
+    <main>
+      <h2>Lab02, ІТ-04 Chapcha Sviatoslav, Var114(9)</h2>
+      <div id="task-1">
+        <div id="form-container">
+          <h3>Форма для заповнення:</h3>
+          <form id="myForm">
+            <div class="form-group">
+              <label for="fullname"></label>
+              <input
+                type="text"
+                maxlength="32"
+                id="fullname"
+                placeholder="ПІБ"
+              />
+            </div>
+            <div class="form-group">
+              <label for="group"></label>
+              <input type="text" maxlength="5" id="group" placeholder="Група" />
+            </div>
+            <div class="form-group">
+              <label for="variant"></label>
+              <input
+                type="text"
+                maxlength="2"
+                id="variant"
+                placeholder="Варіант"
+              />
+            </div>
+            <div class="form-group">
+              <label for="faculty"></label>
+              <input
+                type="text"
+                maxlength="4"
+                id="faculty"
+                placeholder="Факультет"
+              />
+            </div>
+            <div class="form-group">
+              <label for="birthday"></label>
+              <input
+                type="text"
+                maxlength="10"
+                id="birthday"
+                placeholder="Дата народження"
+              />
+            </div>
+            <button
+              type="button"
+              id="confirm-btn"
+              onclick="checkForm()"
+              class="btn"
+            >
+              Підтвердити
+            </button>
+          </form>
+        </div>
+        <div id="users-info">
+          <h5>Введені дані:</h5>
+          <p><b>ПІБ:</b> <span id="users-fullname"></span></p>
+          <p><b>Група:</b> <span id="users-group"></span></p>
+          <p><b>Варіант:</b> <span id="users-variant"></span></p>
+          <p><b>Факультет:</b> <span id="users-faculty"></span></p>
+          <p><b>Дата народження:</b> <span id="users-birthday"></span></p>
         </div>
       </div>
-    </div>
-    <div class="a-center">
-      <h3>Завдання 2</h3>
-    </div>
-    <div>
-      <input type="color" id="palit" value="#ff0000" />
-      <table id="changing-table"></table>
-    </div>
+      <div id="task-2">
+        <div id="current-color">
+          <label for="color_tool">Оберіть колір</label>
+          <input type="color" id="color_tool" />
+        </div>
+      </div>
+    </main>
     <script src="scripts.js"></script>
   </body>
 </html>

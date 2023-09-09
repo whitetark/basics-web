@@ -1,150 +1,122 @@
-let lastRandomColor = "";
-function submitForm() {
-  let isNotValid = false;
-  const nameRegex = /[А-Я][а-я]+\s+[А-Я]\.\s+[А-Я]\./;
-  const groupRegex = /[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ]{2}-[0-9]{2}/;
-  const facultyRegex = /[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ]{4}/;
-  const birthdateRegex = /[0-9]{2}\.[0-9]{2}\.[0-9]{4}/;
-  const nameElem = document.getElementById("name");
-  const name = nameElem.value;
-  if ((name == null) | (name.length <= 5) | !nameRegex.test(name)) {
-    alert("Введіть правильне ПІБ");
-    isNotValid = true;
-    nameElem.style.border = "1px solid red";
-  } else {
-    nameElem.style.border = "1px solid green";
-  }
-  const variantElem = document.getElementById("variant");
+// Task 1, Lab 2
+let checkName = /[А-ЯІЇЄ][а-яіїє']{1,20}\s[А-ЯІЄ]\.\s[А-ЯІЄ]\./m;
+let checkGroup = /[А-ЯІЇЄ][А-ЯІЇЄ]\-[0-9][0-9]/m;
+let checkVariant = /[0-9]{1,2}/m;
+let checkFaculty = /[А-ЯІЇЄ]{1,4}/m;
+let checkDate = /[0-9]{2}\.[0-9]{2}\.[0-9]{4}/m;
+const fullname = document.getElementById("fullname");
+const group = document.getElementById("group");
+const variant = document.getElementById("variant");
+const faculty = document.getElementById("faculty");
+const birthday = document.getElementById("birthday");
+const fullnameSpan = document.getElementById("users-fullname");
+const groupSpan = document.getElementById("users-group");
+const variantSpan = document.getElementById("users-variant");
+const facultySpan = document.getElementById("users-faculty");
+const birthdaySpan = document.getElementById("users-birthday");
+const myForm = document.getElementById("myForm");
 
-  const variant = variantElem.value;
-  if (variant == null || variant <= 0 || variant > 10) {
-    if (!isNotValid) {
-      alert("Введіть правильний варіант");
-    }
-    variantElem.style.border = "1px solid red";
-    isNotValid = true;
-  } else {
-    variantElem.style.border = "1px solid green";
+function checkForm() {
+  let success = true;
+  fullname.classList.remove("input-error");
+  if (!checkName.test(fullname.value)) {
+    fullname.classList.add("input-error");
+    success = false;
+    console.log("test");
   }
-  const groupElem = document.getElementById("group");
-  const group = groupElem.value;
-  if (group == null || group.length != 5 || !groupRegex.test(group)) {
-    if (!isNotValid) {
-      alert("Введіть правильну групу");
-    }
-    groupElem.style.border = "1px solid red";
-    isNotValid = true;
-  } else {
-    groupElem.style.border = "1px solid green";
+  group.classList.remove("input-error");
+  if (!checkGroup.test(group.value)) {
+    group.classList.add("input-error");
+    success = false;
+    console.log("test");
   }
-  const facultyElem = document.getElementById("faculty");
-  const faculty = facultyElem.value;
-  if (faculty == null || faculty.length != 4 || !facultyRegex.test(faculty)) {
-    if (!isNotValid) {
-      alert("Введіть правильний факультет");
-    }
-    facultyElem.style.border = "1px solid red";
-    isNotValid = true;
-  } else {
-    facultyElem.style.border = "1px solid green";
-  }
-  const birthdateElem = document.getElementById("birthdate");
-  const birthdate = birthdateElem.value;
+  variant.classList.remove("input-error");
   if (
-    birthdate == null ||
-    birthdate.length != 10 ||
-    !birthdateRegex.test(birthdate)
+    !checkVariant.test(variant.value) ||
+    variant.value == 0 ||
+    variant.value < 0
   ) {
-    if (!isNotValid) {
-      alert("Введіть правильну дату народження");
-    }
-    birthdateElem.style.border = "1px solid red";
-    isNotValid = true;
+    variant.classList.add("input-error");
+    success = false;
+    console.log("test");
   }
-  if (isNotValid) {
-    return false;
+  faculty.classList.remove("input-error");
+  if (!checkFaculty.test(faculty.value)) {
+    faculty.classList.add("input-error");
+    success = false;
+    console.log("test");
+  }
+  birthday.classList.remove("input-error");
+  if (!checkDate.test(birthday.value)) {
+    birthday.classList.add("input-error");
+    success = false;
+    console.log("test");
+  }
+  if (success) {
+    alert("Всі поля заповнені коректно.");
+    fullnameSpan.innerHTML = fullname.value;
+    groupSpan.innerHTML = group.value;
+    variantSpan.innerHTML = variant.value;
+    facultySpan.innerHTML = faculty.value;
+    birthdaySpan.innerHTML = birthday.value;
+    myForm.reset();
   } else {
-    birthdateElem.style.border = "1px solid green";
+    alert("Ви ввели некоректні дані.");
   }
-
-  document.getElementById("name-value").innerHTML = name;
-  document.getElementById("variant-value").innerHTML = variant;
-  document.getElementById("group-value").innerHTML = group;
-  document.getElementById("faculty-value").innerHTML = faculty;
-  document.getElementById("birthdate-value").innerHTML = birthdate;
-
-  const responseBlock = document.getElementById("response-block");
-  responseBlock.style.display = "block";
-  return false;
+  success = true;
 }
-function createTable() {
-  let rows = 6;
-  let cols = 6;
-  let table = document.getElementById("changing-table");
-  table.innerHTML = "";
-  for (let i = 0; i < rows; i++) {
-    var row = table.insertRow(i);
-    for (let j = 0; j < cols; j++) row.insertCell(j);
+// Task 2, Lab 2
+const taskTwoDiv = document.getElementById("current-color");
+const colorTool = document.getElementById("color_tool");
+const myVariant = 9; // мій варіант - 89 (за розрахунком це 9)
+function randomNum() {
+  return Math.floor(Math.random() * 255);
+}
+function randomColor() {
+  return "rgb(" + randomNum() + "," + randomNum() + "," + randomNum() + ")";
+}
+function generateTable() {
+  let table = document.createElement("table");
+  for (let i = 0; i < 6; i++) {
+    let tableRow = document.createElement("tr");
+    for (let j = 0; j < 6; j++) {
+      let tableCell = document.createElement("td");
+      tableCell.innerHTML = i * 6 + j + 1;
+      tableCell.id = (i * 6 + j + 1).toString();
+      tableRow.appendChild(tableCell);
+    }
+    table.appendChild(tableRow);
   }
+  taskTwoDiv.appendChild(table);
 }
-function printNumbers() {
-  let rows = document.getElementById("changing-table").children[0].children;
-  for (let i = 0; i < rows.length; i++) {
-    let cols = rows[i].children;
-    for (let j = 0; j < cols.length; j++) {
-      let cell = cols[j];
-      cell.innerHTML = `${i * 6 + j + 1}`;
-      cell.addEventListener("click", changeColorByClick);
-      cell.addEventListener("mouseover", changeColorByHover);
-      cell.addEventListener("mouseout", changeColorByUnhover);
-      cell.addEventListener("dblclick", changeColorByDbclick);
+function cellRandomColor(cell) {
+  cell.style.backgroundColor = randomColor();
+}
+// зафарбовує клітинку в поточний колір на пензлі (інструменті для малювання)
+function cellCurrentColor(cell) {
+  cell.style.backgroundColor = colorTool.value;
+}
+// змінює колір клітинки
+function cellsChangeColor(cell) {
+  let table = taskTwoDiv.getElementsByTagName("table")[0];
+  let currColumn = 0;
+  let currRow = 0;
+  for (let row = 0; row < table.rows.length - 1; row++) {
+    for (let col = 0; col < table.rows[row].cells.length; col++) {
+      if (table.rows[row].cells[col].id == cell.id) {
+        currColumn = col;
+        currRow = row;
+      }
     }
   }
-}
-function changeColorByClick(e) {
-  if (e.srcElement.innerHTML !== "9") {
-    return;
+  for (let i = currRow; i <= table.rows.length - 1; i += 2) {
+    table.rows[i].cells[currColumn].style.backgroundColor = colorTool.value;
   }
-  this.style.background = document.getElementById("palit").value;
 }
-function changeColorByHover(e) {
-  if (e.srcElement.innerHTML !== "9") {
-    return;
-  }
+generateTable();
+myCell = document.getElementById(myVariant);
 
-  this.style.background = random_rgba();
-}
-function changeColorByUnhover(e) {
-  if (e.srcElement.innerHTML !== "9") {
-    return;
-  }
-  if (this.style.background === lastRandomColor) {
-    this.style.background = "white";
-  }
-}
-function changeColorByDbclick() {
-  if (this.innerHTML !== "9") {
-    return;
-  }
-  const values = ["9", "21", "33"];
-  const tds = document.querySelectorAll("td");
-  tds.forEach((td) => {
-    if (values.includes(td.innerHTML)) {
-      td.style.background =
-        td.style.background === "rgb(217, 255, 0)"
-          ? "white"
-          : "rgb(217, 255, 0)";
-    }
-  });
-}
-function random_rgba() {
-  var o = Math.round,
-    r = Math.random,
-    s = 255;
-  const color =
-    "rgb(" + o(r() * s) + ", " + o(r() * s) + ", " + o(r() * s) + ")";
-  lastRandomColor = color;
-  return color;
-}
-createTable();
-printNumbers();
+// додаємо події на клітинки (event listeners)
+myCell.addEventListener("mouseover", () => cellRandomColor(myCell));
+myCell.addEventListener("click", () => cellCurrentColor(myCell));
+myCell.addEventListener("dblclick", () => cellsChangeColor(myCell));
