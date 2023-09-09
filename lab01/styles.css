@@ -1,0 +1,43 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+.text-centering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.right {
+  width: 75%;
+  height: 100%;
+  background-color: #ade5f6;
+}
+.main {
+  height: 30%;
+  background-color: royalblue;
+}
+.footer {
+  height: 15%;
+  background-color: #fbf3b4;
+}
+
+.header-flex {
+  height: 55%;
+  display: flex;
+  flex-direction: row;
+}
+.left-flex {
+  width: 25%;
+  background-color: #bad4ed;
+}
+
+.header-float {
+  height: 55%;
+}
+.left-float {
+  width: 25%;
+  height: 100%;
+  float: left;
+  background-color: #bad4ed;
+}
