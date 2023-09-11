@@ -1,122 +1,136 @@
 // Task 1, Lab 2
-let checkName = /[А-ЯІЇЄ][а-яіїє']{1,20}\s[А-ЯІЄ]\.\s[А-ЯІЄ]\./m;
-let checkGroup = /[А-ЯІЇЄ][А-ЯІЇЄ]\-[0-9][0-9]/m;
-let checkVariant = /[0-9]{1,2}/m;
-let checkFaculty = /[А-ЯІЇЄ]{1,4}/m;
-let checkDate = /[0-9]{2}\.[0-9]{2}\.[0-9]{4}/m;
-const fullname = document.getElementById("fullname");
-const group = document.getElementById("group");
-const variant = document.getElementById("variant");
-const faculty = document.getElementById("faculty");
-const birthday = document.getElementById("birthday");
-const fullnameSpan = document.getElementById("users-fullname");
-const groupSpan = document.getElementById("users-group");
-const variantSpan = document.getElementById("users-variant");
-const facultySpan = document.getElementById("users-faculty");
-const birthdaySpan = document.getElementById("users-birthday");
-const myForm = document.getElementById("myForm");
+let nameRegex = /[а-яіїєА-ЯІЇЄ]+\s[А-ЯІЇЄ]\.[А-ЯІЇЄ]\./m
+let groupRegex = /[А-ЯІЇЄ][А-ЯІЇЄ]\-[0-9][0-9]/m
+let variantRegex = /[0-9]{1,2}/m
+let facultyRegex = /[А-ЯІЇЄ]{1,4}/m
+let dateRegex = /[0-9]{2}\.[0-9]{2}\.[0-9]{4}/m
+
+const fullname = document.getElementById('fullname')
+const group = document.getElementById('group')
+const variant = document.getElementById('variant')
+const faculty = document.getElementById('faculty')
+const birthday = document.getElementById('birthday')
+
+const info = [fullname, group, variant, faculty, birthday]
+
+const fullnameSpan = document.getElementById('users-fullname')
+const groupSpan = document.getElementById('users-group')
+const variantSpan = document.getElementById('users-variant')
+const facultySpan = document.getElementById('users-faculty')
+const birthdaySpan = document.getElementById('users-birthday')
+
+const myForm = document.getElementById('myForm')
 
 function checkForm() {
-  let success = true;
-  fullname.classList.remove("input-error");
-  if (!checkName.test(fullname.value)) {
-    fullname.classList.add("input-error");
-    success = false;
-    console.log("test");
+  let success = true
+
+  if (!checkForEmpty(info)) {
+    return alert('Заповніть усі колонки')
   }
-  group.classList.remove("input-error");
-  if (!checkGroup.test(group.value)) {
-    group.classList.add("input-error");
-    success = false;
-    console.log("test");
+
+  fullname.classList.remove('input-error')
+  if (!nameRegex.test(fullname.value)) {
+    fullname.classList.add('input-error')
+    success = false
   }
-  variant.classList.remove("input-error");
-  if (
-    !checkVariant.test(variant.value) ||
-    variant.value == 0 ||
-    variant.value < 0
-  ) {
-    variant.classList.add("input-error");
-    success = false;
-    console.log("test");
+
+  group.classList.remove('input-error')
+  if (!groupRegex.test(group.value)) {
+    group.classList.add('input-error')
+    success = false
   }
-  faculty.classList.remove("input-error");
-  if (!checkFaculty.test(faculty.value)) {
-    faculty.classList.add("input-error");
-    success = false;
-    console.log("test");
+
+  variant.classList.remove('input-error')
+  if (!variantRegex.test(variant.value) || variant.value == 0 || variant.value < 0) {
+    variant.classList.add('input-error')
+    success = false
   }
-  birthday.classList.remove("input-error");
-  if (!checkDate.test(birthday.value)) {
-    birthday.classList.add("input-error");
-    success = false;
-    console.log("test");
+
+  faculty.classList.remove('input-error')
+  if (!facultyRegex.test(faculty.value)) {
+    faculty.classList.add('input-error')
+    success = false
   }
+
+  birthday.classList.remove('input-error')
+  if (!dateRegex.test(birthday.value)) {
+    birthday.classList.add('input-error')
+    success = false
+  }
+
   if (success) {
-    alert("Всі поля заповнені коректно.");
-    fullnameSpan.innerHTML = fullname.value;
-    groupSpan.innerHTML = group.value;
-    variantSpan.innerHTML = variant.value;
-    facultySpan.innerHTML = faculty.value;
-    birthdaySpan.innerHTML = birthday.value;
-    myForm.reset();
+    fullnameSpan.innerHTML = info[0].value
+    groupSpan.innerHTML = info[1].value
+    variantSpan.innerHTML = info[2].value
+    facultySpan.innerHTML = info[3].value
+    birthdaySpan.innerHTML = info[4].value
+    myForm.reset()
   } else {
-    alert("Ви ввели некоректні дані.");
+    alert('Ви ввели некоректні дані.')
   }
-  success = true;
+  success = true
 }
-// Task 2, Lab 2
-const taskTwoDiv = document.getElementById("current-color");
-const colorTool = document.getElementById("color_tool");
-const myVariant = 9; // мій варіант - 89 (за розрахунком це 9)
-function randomNum() {
-  return Math.floor(Math.random() * 255);
-}
-function randomColor() {
-  return "rgb(" + randomNum() + "," + randomNum() + "," + randomNum() + ")";
-}
-function generateTable() {
-  let table = document.createElement("table");
-  for (let i = 0; i < 6; i++) {
-    let tableRow = document.createElement("tr");
-    for (let j = 0; j < 6; j++) {
-      let tableCell = document.createElement("td");
-      tableCell.innerHTML = i * 6 + j + 1;
-      tableCell.id = (i * 6 + j + 1).toString();
-      tableRow.appendChild(tableCell);
+
+function checkForEmpty(info) {
+  let status = true
+  info.forEach((element) => {
+    if (!element.value) {
+      status = false
     }
-    table.appendChild(tableRow);
+  })
+  return status
+}
+
+// Task 2, Lab 2
+const table = document.getElementById('table')
+const palette = document.getElementById('palette')
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF'
+  var color = '#'
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)]
   }
-  taskTwoDiv.appendChild(table);
+  return color
 }
-function cellRandomColor(cell) {
-  cell.style.backgroundColor = randomColor();
+
+function createTable() {
+  for (let i = 0; i < 6; i++) {
+    let tableRow = document.createElement('tr')
+    for (let j = 0; j < 6; j++) {
+      let tableCell = document.createElement('td')
+      tableCell.innerHTML = i * 6 + j + 1
+      tableCell.id = (i * 6 + j + 1).toString()
+      tableRow.appendChild(tableCell)
+    }
+    table.appendChild(tableRow)
+  }
 }
-// зафарбовує клітинку в поточний колір на пензлі (інструменті для малювання)
-function cellCurrentColor(cell) {
-  cell.style.backgroundColor = colorTool.value;
+
+createTable()
+const needCell = document.getElementById('9')
+
+needCell.onclick = function () {
+  needCell.style.backgroundColor = palette.value
 }
-// змінює колір клітинки
-function cellsChangeColor(cell) {
-  let table = taskTwoDiv.getElementsByTagName("table")[0];
-  let currColumn = 0;
-  let currRow = 0;
+
+needCell.ondblclick = function () {
+  let currColumn = 0
+  let currRow = 0
   for (let row = 0; row < table.rows.length - 1; row++) {
     for (let col = 0; col < table.rows[row].cells.length; col++) {
-      if (table.rows[row].cells[col].id == cell.id) {
-        currColumn = col;
-        currRow = row;
+      if (table.rows[row].cells[col].id == needCell.id) {
+        currColumn = col
+        currRow = row
       }
     }
   }
   for (let i = currRow; i <= table.rows.length - 1; i += 2) {
-    table.rows[i].cells[currColumn].style.backgroundColor = colorTool.value;
+    table.rows[i].cells[currColumn].style.backgroundColor = palette.value
   }
 }
-generateTable();
-myCell = document.getElementById(myVariant);
 
-// додаємо події на клітинки (event listeners)
-myCell.addEventListener("mouseover", () => cellRandomColor(myCell));
-myCell.addEventListener("click", () => cellCurrentColor(myCell));
-myCell.addEventListener("dblclick", () => cellsChangeColor(myCell));
+needCell.onmouseover = function () {
+  needCell.style.background = getRandomColor()
+  needCell.style.color = getRandomColor()
+}

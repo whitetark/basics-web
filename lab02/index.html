@@ -12,74 +12,34 @@
   <body>
     <main>
       <h2>Lab02, ІТ-04 Chapcha Sviatoslav, Var114(9)</h2>
-      <div id="task-1">
-        <div id="form-container">
-          <h3>Форма для заповнення:</h3>
-          <form id="myForm">
-            <div class="form-group">
-              <label for="fullname"></label>
-              <input
-                type="text"
-                maxlength="32"
-                id="fullname"
-                placeholder="ПІБ"
-              />
-            </div>
-            <div class="form-group">
-              <label for="group"></label>
-              <input type="text" maxlength="5" id="group" placeholder="Група" />
-            </div>
-            <div class="form-group">
-              <label for="variant"></label>
-              <input
-                type="text"
-                maxlength="2"
-                id="variant"
-                placeholder="Варіант"
-              />
-            </div>
-            <div class="form-group">
-              <label for="faculty"></label>
-              <input
-                type="text"
-                maxlength="4"
-                id="faculty"
-                placeholder="Факультет"
-              />
-            </div>
-            <div class="form-group">
-              <label for="birthday"></label>
-              <input
-                type="text"
-                maxlength="10"
-                id="birthday"
-                placeholder="Дата народження"
-              />
-            </div>
-            <button
-              type="button"
-              id="confirm-btn"
-              onclick="checkForm()"
-              class="btn"
-            >
-              Підтвердити
-            </button>
+      <div id="task1">
+        <div id="main">
+          <form id="form">
+            <label for="fullname">ПІБ:</label>
+            <input type="text" maxlength="32" id="fullname" placeholder="Прізвище І.П." />
+            <label for="group">Група:</label>
+            <input type="text" maxlength="5" id="group" placeholder="IT-0X" />
+            <label for="variant">Варіант:</label>
+            <input type="text" maxlength="3" id="variant" placeholder="9" />
+            <label for="faculty">Факультет:</label>
+            <input type="text" maxlength="4" id="faculty" placeholder="ФІОТ" />
+            <label for="faculty">День народження:</label>
+            <input type="text" maxlength="10" id="birthday" placeholder="00.00.0000" />
+            <button type="button" id="submit" onclick="checkForm()">Accept</button>
           </form>
-        </div>
-        <div id="users-info">
-          <h5>Введені дані:</h5>
-          <p><b>ПІБ:</b> <span id="users-fullname"></span></p>
-          <p><b>Група:</b> <span id="users-group"></span></p>
-          <p><b>Варіант:</b> <span id="users-variant"></span></p>
-          <p><b>Факультет:</b> <span id="users-faculty"></span></p>
-          <p><b>Дата народження:</b> <span id="users-birthday"></span></p>
+          <div id="userInfo">
+            <p><b>Fullname:</b> <span id="users-fullname"></span></p>
+            <p><b>Group:</b> <span id="users-group"></span></p>
+            <p><b>Variant:</b> <span id="users-variant"></span></p>
+            <p><b>Faculty:</b> <span id="users-faculty"></span></p>
+            <p><b>Birthday:</b> <span id="users-birthday"></span></p>
+          </div>
         </div>
       </div>
-      <div id="task-2">
-        <div id="current-color">
-          <label for="color_tool">Оберіть колір</label>
-          <input type="color" id="color_tool" />
-        </div>
+      <div id="task2">
+        <h2>Task 2. Color Palette</h2>
+        <input type="color" id="palette" />
+        <table id="table"></table>
       </div>
     </main>
     <script src="scripts.js"></script>

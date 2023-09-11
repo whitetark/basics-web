@@ -15,12 +15,12 @@ body {
   background-color: #343a40;
 }
 
-#message {
+#info {
   font-size: 30px;
   color: #1b2025;
   padding-bottom: 5px;
 }
-#wrapper {
+#container {
   display: flex;
   flex-direction: column;
   align-items: center;
