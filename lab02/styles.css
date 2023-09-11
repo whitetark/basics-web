@@ -88,3 +88,8 @@ td {
   height: 40px;
   text-align: center;
 }
+
+.input-error {
+  outline: 1.5px solid red;
+  border-radius: 5px;
+}
